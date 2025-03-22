@@ -99,7 +99,7 @@ td {
   border-color: black;
 }
 
-.btn-send {
+.submit {
   border-radius: 8px;
   padding: 8px 16px;
   border: none;
@@ -113,6 +113,6 @@ td {
   transition: background 250ms ease-in-out;
 }
 
-.btn-send:hover {
+.submit:hover {
   background: #6c8cff;
 }
