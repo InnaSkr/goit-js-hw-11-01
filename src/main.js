@@ -1,32 +1,40 @@
-import { getImage } from './js/pixabay-api.js';
-import { make } from './js/render-functions.js';
+import { getImage } from './js/pixabay-api';
+import { galleryMarkup } from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import errorIcon from './img/error.svg';
 
-const form = document.querySelector('.form-find-img');
-const message = document.querySelector('.message');
-const gallery = document.querySelector('.gallery');
-const input = document.querySelector('.enter-img');
+const form = document.querySelector('.form');
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  message.innerHTML = 'Wait, the image is loaded';
-  const searchQuery = input.value.trim();
-  console.log(searchQuery);
-  gallery.innerHTML = '';
-  getImage(searchQuery)
-    .then(images => {
-      if (images.length > 0) {
-        make(images, '.gallery');
-      } else {
-        iziToast.error({
-          position: 'topRight',
-          message: `Sorry, there are no images matching your search ${searchQuery}. Please try again!`,
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const input = document.querySelector('.user-input').value.trim();
+    const gallery = document.querySelector('.gallery');
+
+    if (input === '') {
+        return;
+    }
+
+    gallery.innerHTML = '<p>Loading images, please wait...</p><span class="loader"></span>';
+
+    getImage(input)
+        .then(response => galleryMarkup(response))
+        .catch(error => {
+            iziToast.show({
+                messageColor: '#FAFAFB',
+                messageSize: '16px',
+                backgroundColor: '#EF4040',
+                iconUrl: errorIcon,
+                transitionIn: 'bounceInLeft',
+                position: 'topRight',
+                displayMode: 'replace',
+                closeOnClick: true,
+                message: 'Something went wrong. Please, try again.',
+            });
+            gallery.innerHTML = '';
+            console.log(error);
         });
-      }
-      message.textContent = '';
-    })
-    .catch(errror => {
-      gallery.innerHTML = '';
-    });
-});
+}
