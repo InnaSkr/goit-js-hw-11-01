@@ -3,7 +3,7 @@ import { make } from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector('.form');
+const form = document.querySelector('.form-find-img');
 const message = document.querySelector('.message');
 const gallery = document.querySelector('.gallery');
 const input = document.querySelector('.enter-img');

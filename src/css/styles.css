@@ -17,7 +17,6 @@
 @import url('./back-link.css');
 @import url('./footer.css');
 
-
 * {
   color: black;
 }
@@ -99,7 +98,7 @@ td {
   border-color: black;
 }
 
-.submit {
+.btn-send {
   border-radius: 8px;
   padding: 8px 16px;
   border: none;
@@ -113,6 +112,6 @@ td {
   transition: background 250ms ease-in-out;
 }
 
-.submit:hover {
+.btn-send:hover {
   background: #6c8cff;
 }
